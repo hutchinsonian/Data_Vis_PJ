@@ -26,7 +26,7 @@ scorednode.to_csv('data/scorednode.csv', index=False)
 # 按下划线分隔
 nodespl = pd.merge(
     node, 
-    node['id'].str.rsplit('_',1,expand=True),
+    node['id'].str.rsplit('_',n=1,expand=True),
     how='left', left_index=True, right_index=True)
 
 # 计算优先级
