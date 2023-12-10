@@ -44,7 +44,7 @@ def isEmptyWhois(info):
 outputdir = 'output'
 if os.path.islink(outputdir):
     outputdir = os.readlink(outputdir)
-MAX_GRAPH = 10
+MAX_GRAPH = 14
 
 all_top_info = []
 # Output coregraph infos.

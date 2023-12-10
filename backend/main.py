@@ -1,9 +1,11 @@
+import time
+
 from ucs import *
 import json
 import copy
 import shutil
 import os
-
+from  multiprocessing import Process
 from typing import List, Dict, Tuple
 
 # Cache Data for displaying
@@ -53,17 +55,17 @@ def main_run(source, limitation, ord):
 
     print("Path Searching...")
 
-    # for corenode in corenodes:
-    #     pathtracing = pathUCS(Graph(subgraph.getNodes(), subgraph.getEdges()))
-    #     pathtracing.path_run(corenode, corenodes)
+    for corenode in corenodes:
+        pathtracing = pathUCS(Graph(subgraph.getNodes(), subgraph.getEdges()))
+        pathtracing.path_run(corenode, corenodes)
 
-    #     with open(cachedir + "/path-" + corenode + ".json", "w") as f:
-    #         f.write(json.dumps(pathtracing.targetPaths))
+        with open(cachedir + "/path-" + corenode + ".json", "w") as f:
+            f.write(json.dumps(pathtracing.targetPaths))
 
-    #     with open(cachedir + "/visitedPaths-" + corenode + ".json", "w") as f:
-    #         f.write(json.dumps(list(pathtracing.visitedEdges)))
+        with open(cachedir + "/visitedPaths-" + corenode + ".json", "w") as f:
+            f.write(json.dumps(list(pathtracing.visitedEdges)))
 
-    # print("Path Search Complete.")
+    print("Path Search Complete.")
 
     print("Coregraph Searching ...")
 
@@ -98,27 +100,43 @@ def main_run(source, limitation, ord):
 
     print("Coregraph with neighbors Search Complete.")
 
-# Clear the output directory
-if os.path.isdir(outputdir):
-    shutil.rmtree(outputdir)
+if __name__ == '__main__':
 
-os.mkdir(outputdir)
-with open(outputdir + "/.gitkeep", "w") as f:
-    pass
+    # Clear the output directory
+    if os.path.isdir(outputdir):
+        shutil.rmtree(outputdir)
 
-# Problem 1
-for i in range(len(evidence)):
-    main_run(evidence[i][0], evidence[i][1], i)
+    os.mkdir(outputdir)
+    with open(outputdir + "/.gitkeep", "w") as f:
+        pass
 
-# Problem 2
-# Top node in the remaining nodes.
-# In case some nodes failed to mine,
-# Make auxiliary solutions for that.
-for i in range(5, 8):
-    main_run(getTopNode(), 'large', i)
+    p_th=[]
+    # Problem 1
+    for i in range(len(evidence)):
+        p_th.append(Process(target=main_run,args=(evidence[i][0], evidence[i][1], i)))
+        # main_run(evidence[i][0], evidence[i][1], i)
 
-for i in range(8, 11):
-    main_run(getTopNode(), 'medium', i)
+    # Problem 2
+    # Top node in the remaining nodes.
+    # In case some nodes failed to mine,
+    # Make auxiliary solutions for that.
+    for i in range(5, 8):
+        p_th.append(Process(target=main_run, args=(getTopNode(), 'large', i)))
+        # main_run(getTopNode(), 'large', i)
 
-for i in range(11, 14):
-    main_run(getTopNode(), 'small', i)
+    for i in range(8, 11):
+        # main_run(getTopNode(), 'medium', i)
+        p_th.append(Process(target=main_run, args=(getTopNode(), 'medium', i)))
+
+    for i in range(11, 14):
+        # main_run(getTopNode(), 'small', i)
+        p_th.append(Process(target=main_run, args=(getTopNode(), 'small', i)))
+
+
+    for p in p_th:
+        p.start()
+
+    for p in p_th:
+        p.join()
+
+    # time.sleep(100000)

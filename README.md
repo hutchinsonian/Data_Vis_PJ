@@ -8,15 +8,16 @@ conda create -n datavis python=3.9
 conda activate datavis
 pip install pandas
 ```
-## Prepare
+## Generate the data you need
 Put `Link.csv` and `Node.csv` into `./data/`.
 ```
-python backend/main.py
-python backend/export.py
+python backend/score.py  # get score for uniform cost search
+python backend/main.py  # get coregraph.json, subgraph.json, ...,
+python backend/export.py  # get node.csv, link.cv, ..., for each output item
 ```
-The above code will put the extracted json file into output, but I have already put these files into ouput. So you don't need to run this code
+The above code will put the extracted json file into output, and I have already put these files into ouput. So you don't need to run this code
 
-## Run
+## Visualizes
 ```
 python backend/visualize.py
 ```
