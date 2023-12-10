@@ -1,1 +1,0 @@
-{"nodes": {"IP": 284, "ASN": 30, "Domain": 2567, "Cert": 62, "Whois": 57}, "edges": {"r_cidr": 63, "r_asn": 30, "r_dns_a": 2413, "r_cert": 583, "r_whois_name": 32, "r_whois_email": 14, "r_whois_phone": 22, "r_subdomain": 533, "r_cname": 16, "r_cert_chain": 8, "r_request_jump": 23}, "industries": {"": 1240, "A": 488, "B": 1370, "C": 152, "H": 1, "G": 26, "I": 17, "E": 109}}
