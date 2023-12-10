@@ -1,0 +1,1 @@
+{"nodes": {"Cert": 196, "Domain": 2510, "IP": 94, "Whois": 122, "ASN": 7}, "edges": {"r_cert": 175, "r_dns_a": 1743, "r_cname": 464, "r_subdomain": 628, "r_whois_name": 97, "r_whois_email": 36, "r_asn": 7, "r_cidr": 19, "r_whois_phone": 13, "r_cert_chain": 167}, "industries": {"": 2094, "A": 401, "G": 118, "B": 184, "C": 237, "H": 3, "I": 10, "E": 4}}
