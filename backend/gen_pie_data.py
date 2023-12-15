@@ -2,11 +2,15 @@ import os
 import json
 import re
 
+# Function to format lists in a single line
 def format_list_in_line(json_string, key):
+    # Pattern to match the list for the given key
     pattern = f'"{key}": \\[\n( +)([^\]]+)\n +\\]'
+
+    # Replace function to format the list in a single line
     def replacer(match):
-        indent = match.group(1)
-        list_content = match.group(2).replace('\n' + indent, '')
+        indent = match.group(1)  # The current indentation
+        list_content = match.group(2).replace('\n' + indent, '')  # Remove newlines and indentation inside the list
         return f'"{key}": [{list_content}]'
 
     return re.sub(pattern, replacer, json_string)
@@ -49,6 +53,7 @@ for i in range(0, num_items):
     
 pretty_json = json.dumps(pie_data, indent=4)
 
+# Adjust the formatting of d1, d2, and d3
 for key in ["d1", "d2", "d3"]:
     pretty_json = format_list_in_line(pretty_json, key)
 
