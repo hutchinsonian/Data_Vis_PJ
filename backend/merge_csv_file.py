@@ -3,7 +3,7 @@ import pandas as pd
 
 # Path to the main folder
 main_folder_path = '../155'
-num_items = len(os.listdir("main_folder_path"))
+num_items = len(os.listdir(main_folder_path))
 
 # Initialize empty DataFrames for nodes and links
 merged_nodes = pd.DataFrame()
